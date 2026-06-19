@@ -1,13 +1,5 @@
 FROM node:18-alpine AS builder
 
-FROM node:18-alpine AS builder
-
-ARG NODE_ENV=dev
-ARG NODE_OPTIONS="--openssl-legacy-provider"
-
-ENV NODE_ENV=$NODE_ENV
-ENV NODE_OPTIONS=$NODE_OPTIONS
-
 WORKDIR /app
 
 COPY ./package.json ./package-lock.json .
@@ -26,9 +18,7 @@ WORKDIR /usr/share/nginx/html
 
 RUN rm -rf ./* && addgroup -S "nginx_group" && adduser -SDH -g "nginx_group" -s /sbin/nologin nginx_user
 
-COPY --chown=nginx_user:nginx_group ./nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --chown=nginx_user:nginx_group --from=builder /app/dist/ .
+COPY --chown=nginx_user:nginx_group --from=builder /app/dist/frontend .
 
 RUN touch /var/run/nginx.pid && chown -R nginx_user:nginx_group /var/log/nginx /var/cache/nginx /var/run/nginx.pid
 
