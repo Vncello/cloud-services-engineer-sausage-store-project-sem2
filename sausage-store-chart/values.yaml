@@ -15,11 +15,12 @@ frontend:
   service:
     port: 80
   ingress:
-    host: YOUR_STUDENT_HOSTNAME.students-projects.ru # Корректный домен будет указан в задании
+    host: front-ivan.2sem.students-projects.ru # Корректный домен будет указан в задании
     path: /
     pathType: Prefix
+    secretName: 2sem-students-projects-wildcard-secret
   containerPort: 80
-  image: YOUR_DOCKERHUB/sausage-frontend:latest
+  image: vanchello/sausage-frontend:latest
   resources:
     requests:
       memory: "128Mi"
@@ -62,6 +63,15 @@ backend:
   ### Опишите VPA для бэкенда
 
 backend-report:
+  image: vanchello/backend-report:latest
+  replicas: 1
+  revisionHistoryLimit: 15
+  strategy:
+    ### СТРАТЕГИЯ
+  recources:
+    ### РЕСУРСЫ
+  containerPort: 8080
+  
 ### Опишите значения для backend-report
 ### Приложение должно использовать стратегию Recreate
 ### Приложение использует переменную PORT - порт, на котором оно запустится и DB - Uri-подключение к mongodb. 
@@ -70,7 +80,17 @@ backend-report:
 
 infra:
   postgresql:
-  ### Опишите необходимые переменные для развертывания PostgresQL в кластере Kubernetes
+    image: postgresql:18-trixie
+    ports:
+      port: 5432
+      containerPort: 5432
+    volume:
+      mountPath: /var/lib/postgresql
+    data:
+      POSTGRES_PASSWORD: storepassword
+      POSTGRES_USER: store
+      POSTGRES_DB: sausage-store
+
   mongodb:
     env:
       MONGO_INITDB_ROOT_USERNAME: root
