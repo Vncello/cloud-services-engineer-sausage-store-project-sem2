@@ -61,4 +61,4 @@ metadata:
   name: postgresql-conf
   namespace: {{ .Release.Namespace }}
 data:
-{{ toYaml .Values.postgresq.data | nindent 2}}
+{{ toYaml .Values.postgresql.data | nindent 2}}

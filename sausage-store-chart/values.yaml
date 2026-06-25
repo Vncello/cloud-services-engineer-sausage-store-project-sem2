@@ -47,7 +47,7 @@ backend:
   replicas: 1
   strategy:
   ### Опишите стратегию RollingUpdate для бэкенда
-  image: YOUR_DOCKERHUB/sausage-backend:latest
+  image: vanchello/sausage-backend:latest
   imagePullPolicy: Always
   resources:
     requests:
@@ -67,10 +67,29 @@ backend-report:
   replicas: 1
   revisionHistoryLimit: 15
   strategy:
-    ### СТРАТЕГИЯ
+    type: Recreate
   recources:
-    ### РЕСУРСЫ
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
   containerPort: 8080
+  hpa:
+    minReplicas: 1
+    maxReplicas: 3
+    metrics:
+      - type: Resource
+        recources:
+          name: cpu
+          target:
+            avarageUtilization: 60
+            type: Utilization
+  config:
+    port: 27017
+  service:
+    port: 8080
   
 ### Опишите значения для backend-report
 ### Приложение должно использовать стратегию Recreate
