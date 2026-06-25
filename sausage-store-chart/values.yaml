@@ -60,7 +60,7 @@ backend:
   resources:
     requests:
       memory: "256Mi"
-      cpu: "100m"
+      cpu: "300m"
     limits:
       memory: "512Mi"
       cpu: "1"
@@ -70,7 +70,15 @@ backend:
       path: /actuator/health
       port: 8080
   vpa:
-  ### Опишите VPA для бэкенда
+    updatePolicy:
+      updateMode: Off
+    resourcePolicy:
+      minAllowed:
+        cpu: 100m
+        memory: 128Mi
+      maxAllowed:
+        cpu: 500m
+        memory: 512Mi
 
 backend-report:
   image: vanchello/backend-report:latest
