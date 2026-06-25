@@ -73,12 +73,16 @@ backend:
     updatePolicy:
       updateMode: Off
     resourcePolicy:
-      minAllowed:
-        cpu: 100m
-        memory: 128Mi
-      maxAllowed:
-        cpu: 500m
-        memory: 512Mi
+      containerPolicy:
+        - minAllowed:
+            cpu: 100m
+            memory: 128Mi
+          maxAllowed:
+            cpu: 500m
+            memory: 512Mi
+          controlledResources:
+            - cpu
+            - memory
 
 backend-report:
   image: vanchello/backend-report:latest
