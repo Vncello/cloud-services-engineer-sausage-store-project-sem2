@@ -1,5 +1,11 @@
 global:
   imagePullPolicy: Always
+  mongodb:
+    port: 27017
+    user: report
+    password: reportpassword
+    db: sausage-store
+
   ###vault:
   ###  host: ip
   ###  name: vault
@@ -7,7 +13,6 @@ global:
 
 
 frontend:
-### В чарте frontend отсутствуют некоторые важные файлы. Поймите какие и опишите их.
   replicas: 1
   revisionHistoryLimit: 15
   strategy:
@@ -15,7 +20,7 @@ frontend:
   service:
     port: 80
   ingress:
-    host: front-ivan.2sem.students-projects.ru # Корректный домен будет указан в задании
+    host: front-ivan.2sem.students-projects.ru 
     path: /
     pathType: Prefix
     secretName: 2sem-students-projects-wildcard-secret
@@ -46,7 +51,10 @@ backend:
   revisionHistoryLimit: 15
   replicas: 1
   strategy:
-  ### Опишите стратегию RollingUpdate для бэкенда
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   image: vanchello/sausage-backend:latest
   imagePullPolicy: Always
   resources:
@@ -58,7 +66,9 @@ backend:
       cpu: "1"
   containerPort: 8080
   livenessProbe:
-  ### Опишите LivenessProbe для бэкенда
+    httpGet:
+      path: /actuator/health
+      port: 8080
   vpa:
   ### Опишите VPA для бэкенда
 
@@ -86,16 +96,9 @@ backend-report:
           target:
             avarageUtilization: 60
             type: Utilization
-  config:
-    port: 27017
   service:
     port: 8080
-  
-### Опишите значения для backend-report
-### Приложение должно использовать стратегию Recreate
-### Приложение использует переменную PORT - порт, на котором оно запустится и DB - Uri-подключение к mongodb. 
-### DB положите в Secret, PORT в ConfigMap
-### Опишите HPA для backend-report
+
 
 infra:
   postgresql:

@@ -42,7 +42,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
-                  key: DB
+                  key: db
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
