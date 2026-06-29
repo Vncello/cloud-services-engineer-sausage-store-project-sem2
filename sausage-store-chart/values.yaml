@@ -6,9 +6,9 @@ global:
     password: reportspassword
     db: sausage-store
 
-  ###vault:
-  ###  host: ip
-  ###  name: vault
+    vault:
+      host: 111.88.247.60
+      name: vault
   ###  vaultToken: someToken
 
 
@@ -42,8 +42,6 @@ backend:
     scrape: "true"
   env:
     postgresUri: jdbc:postgresql://postgresql:5432/sausage-store
-    postgresUser: store
-    postgresPassword: storepassword
     reportPath: /logs/reports
     logPath: /logs
   service:
