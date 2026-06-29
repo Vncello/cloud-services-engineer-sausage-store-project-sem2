@@ -2,8 +2,8 @@ global:
   imagePullPolicy: Always
   mongodb:
     port: 27017
-    user: report
-    password: reportpassword
+    user: reports
+    password: reportspassword
     db: sausage-store
 
   ###vault:
@@ -74,7 +74,8 @@ backend:
       updateMode: Off
     resourcePolicy:
       containerPolicy:
-        - minAllowed:
+        - containerName: "*"
+          minAllowed:
             cpu: 100m
             memory: 128Mi
           maxAllowed:
@@ -97,6 +98,10 @@ backend-report:
     limits:
       cpu: 500m
       memory: 256Mi
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
   containerPort: 8080
   hpa:
     minReplicas: 1

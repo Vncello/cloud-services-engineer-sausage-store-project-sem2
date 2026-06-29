@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-user-create
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": 5
+spec:
+  template:
+    spec:
+      containers:
+        - name: Create user and DB
+          image: mongo:latest
+          command: 
+            - "mongosh"
+            - "--host"
+            - "mongodb"
+            - "-u"
+            - "{{ .Values.mongo.env.MONGO_INITDB_ROOT_USERNAME }}"
+            - "-p"
+            - "{{ .Values.mongo.env.MONGO_INITDB_ROOT_PASSWORD }}"
+            - "--authenticationDatabase"
+            - "admin"
+            - "--eval"
+            - |
+              db = db.getSiblingDB('{{ .Values.global.mongodb.db }}');
+              db.createUser({
+                user: '{{ .Values.global.mongodb.user }}',
+                pwd: '{{ .Values.global.mongodb.password }}',
+                roles: [
+                  { role: 'readWrite', db: '{{ .Values.global.mongodb.db }}' }
+                ]
+              });
+

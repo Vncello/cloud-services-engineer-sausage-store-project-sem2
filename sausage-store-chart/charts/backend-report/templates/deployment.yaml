@@ -46,6 +46,9 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.containerPort }}
+          livenessProbe:
+{{ toYaml .Values.livenessProbe | nindent 12 }}
+
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
