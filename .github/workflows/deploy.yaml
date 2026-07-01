@@ -112,5 +112,5 @@ jobs:
             --password $NEXUS_HELM_REPO_PASSWORD
             helm repo update 
             helm upgrade --install sausage-store vanchello-sausage-store/sausage-store \
-            --namespace $SAUSAGE_STORE_NAMESPACE
+            --namespace $SAUSAGE_STORE_NAMESPACE \
             --set global.vault.token="$VAULT_TOKEN"
