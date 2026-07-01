@@ -5,4 +5,4 @@ metadata:
   name: {{ .Release.Name }}-{{ .Chart.Name }}-conf
   namespace: {{ .Release.Namespace }}
 data:
-  port: {{ .Values.containerPort }}
+  port: {{ .Values.containerPort | quote }}
