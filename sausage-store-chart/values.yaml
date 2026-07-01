@@ -107,10 +107,10 @@ backend-report:
     maxReplicas: 3
     metrics:
       - type: Resource
-        recources:
+        recource:
           name: cpu
           target:
-            avarageUtilization: 60
+            averageUtilization: 60
             type: Utilization
   service:
     port: 8080
