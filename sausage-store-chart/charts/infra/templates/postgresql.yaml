@@ -34,9 +34,9 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-      resources:
-        requests:
-          storage: 3Gi
+        resources:
+          requests:
+            storage: 3Gi
 ---
 apiVersion: v1
 kind: Service

@@ -9,8 +9,9 @@ metadata:
 spec:
   template:
     spec:
+      restartPolicy: OnFailure
       containers:
-        - name: Create user and DB
+        - name: create-user-and-db
           image: mongo:latest
           command: 
             - "mongosh"
