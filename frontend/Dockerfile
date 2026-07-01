@@ -5,7 +5,7 @@ WORKDIR /app
 COPY ./package.json ./package-lock.json .
 
 RUN npm ci --no-audit --no-fund && \
-    npm cahce-clean --force
+    npm cahce clean --force
 
 COPY . .
 
