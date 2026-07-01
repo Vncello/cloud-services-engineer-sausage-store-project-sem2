@@ -107,7 +107,7 @@ backend-report:
     maxReplicas: 3
     metrics:
       - type: Resource
-        recource:
+        resource:
           name: cpu
           target:
             averageUtilization: 60
