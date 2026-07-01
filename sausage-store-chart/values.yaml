@@ -118,7 +118,7 @@ backend-report:
 
 infra:
   postgresql:
-    image: postgresql:18-trixie
+    image: postgres:18-trixie
     ports:
       port: 5432
       containerPort: 5432
