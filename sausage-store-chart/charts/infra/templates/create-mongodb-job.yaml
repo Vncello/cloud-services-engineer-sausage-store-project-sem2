@@ -13,6 +13,13 @@ spec:
       containers:
         - name: create-user-and-db
           image: mongo:latest
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
           command: 
             - "mongosh"
             - "--host"
