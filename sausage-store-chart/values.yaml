@@ -70,7 +70,7 @@ backend:
       port: 8080
   vpa:
     updatePolicy:
-      updateMode: Off
+      updateMode: "Off"
     resourcePolicy:
       containerPolicy:
         - containerName: "*"
