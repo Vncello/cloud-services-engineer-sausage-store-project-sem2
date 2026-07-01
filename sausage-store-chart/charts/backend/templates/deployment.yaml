@@ -47,7 +47,7 @@ spec:
             - name: SPRING_CLOUD_VAULT_HOST
               value: {{ .Values.global.vault.host }}
             - name: SPRING_CLOUD_VAULT_PORT
-              value: {{ .Values.global.vault.port }}
+              value: {{ .Values.global.vault.port | quote}}
             - name: REPORT_PATH
               valueFrom:
                 configMapKeyRef:
