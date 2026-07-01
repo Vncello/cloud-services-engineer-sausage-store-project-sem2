@@ -22,21 +22,21 @@ spec:
           ports:
             - name: postgresql
               containerPort: {{ .Values.postgresql.ports.containerPort }}
-      volumeMounts:
-        - name: postgresql-storage
-          mountPath: {{ .Values.postgresql.volume.mountPath }}
-      envFrom:
-        - configMapRef:
-            name: postgresql-conf
-      volumeClaimTemplates:
-        - metadata:
-            name: postgresql-storage
-          spec:
-            accessModes:
-              - ReadWriteOnce
-          resources:
-            requests:
-              storage: 3Gi
+          envFrom:
+            - configMapRef:
+                name: postgresql-conf
+          volumeMounts:
+            - name: postgresql-storage
+              mountPath: {{ .Values.postgresql.volume.mountPath }}
+  volumeClaimTemplates:
+    - metadata:
+        name: postgresql-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+      resources:
+        requests:
+          storage: 3Gi
 ---
 apiVersion: v1
 kind: Service

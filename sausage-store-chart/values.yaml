@@ -71,7 +71,7 @@ backend:
   vpa:
     updatePolicy:
       updateMode: "Off"
-    resourcePolicy:
+    containerPolicies:
       containerPolicy:
         - containerName: "*"
           minAllowed:
@@ -90,7 +90,7 @@ backend-report:
   revisionHistoryLimit: 15
   strategy:
     type: Recreate
-  recources:
+  resources:
     requests:
       cpu: 100m
       memory: 128Mi
