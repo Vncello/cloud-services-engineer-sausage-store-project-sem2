@@ -85,7 +85,7 @@ backend:
             - memory
 
 backend-report:
-  image: vanchello/backend-report:latest
+  image: vanchello/sausage-backend-report:latest
   replicas: 1
   revisionHistoryLimit: 15
   strategy:

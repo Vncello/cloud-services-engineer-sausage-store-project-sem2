@@ -28,6 +28,13 @@ spec:
           volumeMounts:
             - name: postgresql-storage
               mountPath: {{ .Values.postgresql.volume.mountPath }}
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "256Mi"
+            limits:
+              cpu: "150m"
+              memory: "512Mi"
   volumeClaimTemplates:
     - metadata:
         name: postgresql-storage
