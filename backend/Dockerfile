@@ -18,7 +18,7 @@ WORKDIR /app
 # создаём пользователя jaruser
 RUN addgroup --system jaruser \
     && adduser -S -s /bin/false -G jaruser jaruser -D -H \
-    && apk add --no-cache dumb-init==1.2.5-r0 \
+    && apk add --no-cache dumb-init \
     && apk add --update curl \
     && rm -rf /var/cache/apk/* \
     && mkdir -p /logs/reports \
