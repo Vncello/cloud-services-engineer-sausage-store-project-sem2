@@ -4,11 +4,12 @@ WORKDIR /app
 
 COPY ./package.json ./package-lock.json .
 
-RUN npm ci
+RUN npm ci --no-audit --no-fund && \
+    npm cahce-clean --force
 
 COPY . .
 
-RUN npm run build
+RUN npm run build -- --prod
 
 
 
