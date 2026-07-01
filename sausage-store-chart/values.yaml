@@ -92,7 +92,7 @@ backend-report:
     type: Recreate
   resources:
     requests:
-      cpu: 100m
+      cpu: 300m
       memory: 128Mi
     limits:
       cpu: 500m
@@ -110,7 +110,7 @@ backend-report:
         resource:
           name: cpu
           target:
-            averageUtilization: 60
+            averageUtilization: 90
             type: Utilization
   service:
     port: 8080
