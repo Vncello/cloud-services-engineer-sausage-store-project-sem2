@@ -43,9 +43,11 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.global.vault.name }}
-                  key: vault_token
+                  key: vault-token
             - name: SPRING_CLOUD_VAULT_HOST
               value: {{ .Values.global.vault.host }}
+            - name: SPRING_CLOUD_VAULT_PORT
+              value: {{ .Values.global.vault.port }}
             - name: REPORT_PATH
               valueFrom:
                 configMapKeyRef:

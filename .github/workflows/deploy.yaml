@@ -9,7 +9,7 @@ env:
   NEXUS_HELM_REPO: ${{ secrets.NEXUS_HELM_REPO }}
   NEXUS_HELM_REPO_USER: ${{ secrets.NEXUS_HELM_REPO_USER }}
   NEXUS_HELM_REPO_PASSWORD: ${{ secrets.NEXUS_HELM_REPO_PASSWORD }}
-  SAUSAGE_STORE_NAMESPACE: YOUR_NAMESPACE
+  SAUSAGE_STORE_NAMESPACE: r-devops-magistracy-project-2sem-271385821
   KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
   VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
 
@@ -85,7 +85,7 @@ jobs:
             curl \
             -u "$NEXUS_HELM_REPO_USER:$NEXUS_HELM_REPO_PASSWORD" \
             --upload-file sausage-store-$VERSION.tgz \
-            "$NEXUS_URL/repository/$NEXUS_HELM_REPO/"
+            "$NEXUS_HELM_REPO"
 
   # Деплоим приложения в кластер Kubernetes с помощью helm-чарт
   deploy_helm_chart_to_kubernetes:
@@ -94,4 +94,23 @@ jobs:
       needs: add_helm_chart_to_nexus
 
       steps:
-      #### Опишите необходимые шаги
+        - name: Install Helm
+          uses: azure/setup-helm@v3
+          with:
+            version: 'latest'
+
+        - name: K8S config
+          uses: azure/k8s-set-context@v4
+          with:
+            method: kubeconfig
+            kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+        - name: Add/update helm repo and deploy to cluster
+          run: |
+            helm repo add vanchello-sausage-store "$NEXUS_HELM_REPO" \
+            --username $NEXUS_HELM_REPO_USER \
+            --password $NEXUS_HELM_REPO_PASSWORD
+            helm repo update 
+            helm upgrade --install sausage-store vanchello-sausage-store/sausage-store \
+            --namespace $SAUSAGE_STORE_NAMESPACE
+            --set global.vault.token="$VAULT_TOKEN"
