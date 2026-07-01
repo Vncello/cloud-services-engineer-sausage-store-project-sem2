@@ -13,7 +13,7 @@ metadata:
     app.kubernetes.io/component: {{ .Chart.Name }}
     app.kubernetes.io/part-of: {{ .Release.Name }}
 spec:
-  #replicas: {{ .Values.replicas }}, комментируем, т.к. используется HPA
+  replicas: {{ .Values.replicas }}
   revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
   strategy:
 {{ toYaml .Values.strategy | nindent 4 }}
