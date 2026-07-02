@@ -93,10 +93,10 @@ backend-report:
   resources:
     requests:
       cpu: 300m
-      memory: 128Mi
+      memory: 20Mi
     limits:
       cpu: 500m
-      memory: 256Mi
+      memory: 50Mi
   livenessProbe:
     httpGet:
       path: /api/v1/health
