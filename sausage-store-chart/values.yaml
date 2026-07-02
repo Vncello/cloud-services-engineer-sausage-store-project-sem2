@@ -58,10 +58,10 @@ backend:
   imagePullPolicy: Always
   resources:
     requests:
-      memory: "256Mi"
+      memory: "128Mi"
       cpu: "300m"
     limits:
-      memory: "512Mi"
+      memory: "256Mi"
       cpu: "1"
   containerPort: 8080
   livenessProbe:
