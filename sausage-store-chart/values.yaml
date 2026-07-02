@@ -99,8 +99,11 @@ backend-report:
       memory: 256Mi
   livenessProbe:
     httpGet:
-      path: /health
+      path: /api/v1/health
       port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    failureThreshold: 7
   containerPort: 8080
   hpa:
     minReplicas: 1

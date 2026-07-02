@@ -34,7 +34,7 @@ spec:
                 -p "$MONGO_INITDB_ROOT_PASSWORD" \
                 --authenticationDatabase admin \
                 --eval "
-                  db = db.getSiblingDB('{{ .Values.global.mongodb.db }}');
+                  use {{ .Values.global.mogodb.db }};
                   if (db.getUser('{{ .Values.global.mongodb.user }}') === null) {
                     db.createUser({
                       user: '{{ .Values.global.mongodb.user }}',
